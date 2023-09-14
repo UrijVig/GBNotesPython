@@ -1,11 +1,98 @@
+from datetime import date
+
 from model.FileHandler import FileHandler
 from model.GBNotes import GBNotes
+from model.InputData import *
 from model.Notes import Notes
+
 
 class UserController:
     def __init__(self):
         self.__file_handler = None
-        self.__note_list = GBNotes()
+        self.__note_list: GBNotes = GBNotes()
 
     def creator_file_directory(self, path: str) -> None:
         self.__file_handler = FileHandler(path)
+
+    def getInputNumber(self) -> int:
+        try:
+            return inputNumber()
+        except:
+            raise
+
+    def importFile(self) -> None:
+        flag = True
+        while flag:
+            file_name = inputFileName()
+            try:
+                self.__note_list = self.__file_handler.import_file(file_name)
+                self.__reID()
+            except FileNotFoundError:
+                print("Не удалось найти файл! ")
+            else:
+                print("Импортирование прошло успешно! ")
+                flag = False
+
+    def exportFile(self):
+        flag = True
+        while flag:
+            file_name = inputFileName()
+            try:
+                self.__file_handler.export_file(self.__note_list, file_name)
+            except Exception:
+                print("Что-то пошло не так!  ")
+            else:
+                print("Экспортирование прошло успешно! ")
+                flag = False
+
+    def createNewNotes(self) -> None:
+        newNotes = Notes()
+        newNotes.setTitle(getInputTitle())
+        newNotes.setBody(getInputBody())
+        self.__note_list.add(newNotes)
+        self.__reID()
+
+    def readNotes(self) -> str:
+        flag = True
+        while flag:
+            idx = inputNumber()
+            if idx < 0 or idx > self.__note_list.getLen():
+                return self.__note_list.read(idx)
+            else:
+                print("Выход за пределы списка записок! ")
+
+
+    def updateNotes(self) -> None:
+        flag = True
+        while flag:
+            idx = inputNumber()
+            if idx < 0 or idx > self.__note_list.getLen():
+                self.__note_list[idx].getTitle()
+                print("Изменить на: ")
+                self.__note_list[idx].setTitle(getInputTitle())
+                self.__note_list[idx].getBody()
+                print("Изменить на: ")
+                self.__note_list[idx].setBody(getInputBody())
+                self.__note_list[idx].setDate(date.today())
+                flag = False
+            else:
+                print("Выход за пределы списка записок! ")
+
+    def deleteNotes(self) -> None:
+        flag = True
+        while flag:
+            idx = inputNumber()
+            if idx < 0 or idx > self.__note_list.getLen():
+                self.__note_list.pop(idx)
+                self.__reID()
+                flag = False
+            else:
+                print("Выход за пределы списка записок! ")
+
+    def readAll(self) -> None:
+        for notes in self.__note_list:
+            print(notes)
+
+    def __reID(self) -> None:
+        for idx in range(self.__note_list.getLen()):
+            self.__note_list[idx].setId(idx)
