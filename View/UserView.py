@@ -59,5 +59,4 @@ class UserView:
         print(massage)
 
 
-user = UserView()
-user.run()
+

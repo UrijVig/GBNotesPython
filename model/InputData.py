@@ -4,8 +4,10 @@ def inputNumber() -> int:
     except:
         raise
 
+
 def inputFileName() -> str:
     return input("Введите имя файла для импорта: ")
+
 
 def getInputBody() -> str:
     print("Для того, чтобы завершить запить, в новой строке введите \'Exit\' \n")
@@ -16,6 +18,7 @@ def getInputBody() -> str:
             return data
         else:
             data += '\n' + temp
+
 
 def getInputTitle() -> str:
     return "Title: " + input("Введите имя записки! ")

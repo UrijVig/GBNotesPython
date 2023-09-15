@@ -46,6 +46,3 @@ class Notes:
     def setDate(self, data):
         self.__date = data
         return self
-
-# notes = Notes()
-# print(notes)

@@ -1,7 +1,6 @@
 from datetime import date
 
 from model.FileHandler import FileHandler
-from model.GBNotes import GBNotes
 from model.InputData import *
 from model.Notes import Notes
 
@@ -9,7 +8,7 @@ from model.Notes import Notes
 class UserController:
     def __init__(self):
         self.__file_handler = None
-        self.__note_list: GBNotes = GBNotes()
+        self.__note_list = []
 
     def creator_file_directory(self, path: str) -> None:
         self.__file_handler = FileHandler(path)
@@ -49,15 +48,15 @@ class UserController:
         newNotes = Notes()
         newNotes.setTitle(getInputTitle())
         newNotes.setBody(getInputBody())
-        self.__note_list.add(newNotes)
+        self.__note_list.append(newNotes)
         self.__reID()
 
     def readNotes(self) -> str:
         flag = True
         while flag:
             idx = inputNumber()
-            if idx < 0 or idx > self.__note_list.getLen():
-                return self.__note_list.read(idx)
+            if 0 < idx < len(self.__note_list):
+                return self.__note_list.__getitem__(idx)
             else:
                 print("Выход за пределы списка записок! ")
 
@@ -66,11 +65,11 @@ class UserController:
         flag = True
         while flag:
             idx = inputNumber()
-            if idx < 0 or idx > self.__note_list.getLen():
-                self.__note_list[idx].getTitle()
+            if 0 < idx < len(self.__note_list):
+                print(self.__note_list[idx].getTitle)
                 print("Изменить на: ")
                 self.__note_list[idx].setTitle(getInputTitle())
-                self.__note_list[idx].getBody()
+                print(self.__note_list[idx].getBody)
                 print("Изменить на: ")
                 self.__note_list[idx].setBody(getInputBody())
                 self.__note_list[idx].setDate(date.today())
@@ -82,7 +81,7 @@ class UserController:
         flag = True
         while flag:
             idx = inputNumber()
-            if idx < 0 or idx > self.__note_list.getLen():
+            if 0 < idx < len(self.__note_list):
                 self.__note_list.pop(idx)
                 self.__reID()
                 flag = False
@@ -94,5 +93,5 @@ class UserController:
             print(notes)
 
     def __reID(self) -> None:
-        for idx in range(self.__note_list.getLen()):
+        for idx in range(len(self.__note_list)):
             self.__note_list[idx].setId(idx)
