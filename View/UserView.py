@@ -22,7 +22,8 @@ class UserView:
             print("Изменить записку - 4")
             print("Удалить записку - 5")
             print("Показать все записки - 6")
-            print("Экспортировать файл заметок - 7")
+            print("Сделать выборку по дате - 7")
+            print("Экспортировать файл заметок - 8")
             print("Завершить работу программы - 0")
             action_flag: bool = True
             while action_flag:
@@ -51,6 +52,8 @@ class UserView:
             if action == 6:
                 self.controller.readAll()
             if action == 7:
+                self.controller.selectData()
+            if action == 8:
                 self.controller.exportFile()
             if action == 0:
                 flag = False

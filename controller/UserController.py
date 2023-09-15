@@ -1,4 +1,5 @@
 from datetime import date
+from time import mktime
 
 from model.FileHandler import FileHandler
 from model.InputData import *
@@ -95,3 +96,12 @@ class UserController:
     def __reID(self) -> None:
         for idx in range(len(self.__note_list)):
             self.__note_list[idx].setId(idx)
+
+    def selectData(self) -> None:
+        day = inputDate()
+        result = []
+        for notes in self.__note_list:
+            if date.fromisoformat(notes.getDate) >= date.fromtimestamp(mktime(day)):
+                result.append(notes)
+        for notes in result:
+            print(notes)

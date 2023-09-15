@@ -1,3 +1,6 @@
+import time
+
+
 def inputNumber() -> int:
     try:
         return int(input("Введите число: "))
@@ -22,3 +25,13 @@ def getInputBody() -> str:
 
 def getInputTitle() -> str:
     return "Title: " + input("Введите имя записки! ")
+
+
+def inputDate() -> str:
+    print("Пожалуйста введите дату в формате дд.мм.гггг")
+    while True:
+        inputdata = input()
+        try:
+            return time.strptime(inputdata, "%d.%m.%Y")
+        except Exception:
+            print("Введены некорректные данные!")
