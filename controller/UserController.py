@@ -97,7 +97,7 @@ class UserController:
         for idx in range(len(self.__note_list)):
             self.__note_list[idx].setId(idx)
 
-    def selectData(self) -> None:
+    def selectDate(self) -> None:
         day = inputDate()
         result = []
         for notes in self.__note_list:

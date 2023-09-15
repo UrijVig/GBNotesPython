@@ -52,7 +52,7 @@ class UserView:
             if action == 6:
                 self.controller.readAll()
             if action == 7:
-                self.controller.selectData()
+                self.controller.selectDate()
             if action == 8:
                 self.controller.exportFile()
             if action == 0:
